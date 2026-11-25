@@ -49,12 +49,10 @@ export const rise: Variants = {
 };
 
 // Each headline word hops straight up with a springy settle (no tilt, so it never looks crooked).
-// rotate: 0 must stay in both states: it is the angle the hover wobble returns to.
 export const popWord: Variants = {
-  hidden: { y: "0.45em", rotate: 0, scale: 0.94 },
+  hidden: { y: "0.45em", scale: 0.94 },
   visible: {
     y: 0,
-    rotate: 0,
     scale: 1,
     transition: { type: "spring", stiffness: 420, damping: 14 },
   },
@@ -72,12 +70,19 @@ export const drawLine: Variants = {
   visible: { clipPath: "inset(0 0% 0 0)", transition: { duration: 0.6, ease: easeSmooth } },
 };
 
-// Hovering a headline word makes it wobble and bounce, then settle.
-export const wordWobble: TargetAndTransition = {
+// Headline words wobble one after another like a wave, and the wave repeats every few seconds.
+// `order` is the word's position in the headline, so each word starts slightly after the last.
+export const wordWobble = (order: number): TargetAndTransition => ({
   rotate: [0, -8, 6, -4, 2, 0],
   y: [0, -8, 0, -3, 0],
-  transition: { duration: 0.6, ease: "easeInOut" },
-};
+  transition: {
+    duration: 0.6,
+    ease: "easeInOut",
+    delay: 2 + order * 0.15,
+    repeat: Infinity,
+    repeatDelay: 10,
+  },
+});
 
 // --- Hover ---
 

@@ -4,21 +4,18 @@ import { cn } from "cn"
 import { Slot } from "radix-ui"
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-full border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-[translate,box-shadow,background-color,color,filter] duration-150 ease-smooth outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:shadow-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-full border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-[background-color,color,filter] duration-150 ease-smooth outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:shadow-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        // 3D variants: lift slightly on hover, press down onto the ledge when clicked
-        default:
-          "bg-primary text-primary-foreground shadow-press-coral hover:brightness-110 motion-safe:hover:-translate-y-px active:shadow-press-coral-down motion-safe:active:translate-y-[3px]",
-        navy:
-          "bg-brand-navy text-white shadow-press-navy hover:brightness-125 motion-safe:hover:-translate-y-px active:shadow-press-navy-down motion-safe:active:translate-y-[3px]",
+        default: "bg-primary text-primary-foreground hover:brightness-110",
+        navy: "bg-brand-navy text-white hover:brightness-125",
         // Frosted glass on light backgrounds
         glass:
-          "border-white/80 bg-white/65 text-ink-primary shadow-press-glass backdrop-blur-md hover:bg-white/90 motion-safe:hover:-translate-y-px active:shadow-press-glass-down motion-safe:active:translate-y-[3px]",
+          "border-white/80 bg-white/65 text-ink-primary backdrop-blur-md hover:bg-white/90",
         // Frosted glass on dark backgrounds
         "glass-dark":
-          "border-white/20 bg-white/10 text-white shadow-press-glass-dark backdrop-blur-md hover:bg-white/15 motion-safe:hover:-translate-y-px active:shadow-press-glass-dark-down motion-safe:active:translate-y-[3px]",
+          "border-white/20 bg-white/10 text-white backdrop-blur-md hover:bg-white/15",
         outline:
           "border-border bg-background shadow-xs hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:

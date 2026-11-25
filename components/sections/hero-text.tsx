@@ -13,19 +13,20 @@ import { routes } from "@/routes";
 
 interface WordsInterface {
   text: string;
+  // Position of this line's first word in the whole headline, so the wobble wave runs across both lines.
+  offset?: number;
 }
 
 // Splits a line into words that each animate on their own.
-function Words({ text }: WordsInterface) {
+// The outer span pops in on load; the inner span wobbles on a repeating timer.
+function Words({ text, offset = 0 }: WordsInterface) {
   return text.split(" ").map((word, index) => (
     <span key={word + index}>
       {index > 0 && " "}
-      <motion.span
-        variants={popWord}
-        whileHover={wordWobble}
-        className="inline-block origin-bottom cursor-default"
-      >
-        {word}
+      <motion.span variants={popWord} className="inline-block">
+        <motion.span animate={wordWobble(offset + index)} className="inline-block origin-bottom">
+          {word}
+        </motion.span>
       </motion.span>
     </span>
   ));
@@ -55,7 +56,7 @@ export default function HeroText() {
         <Words text="Little hearts." />
         <br />
         <span className="relative inline-block text-brand-coral">
-          <Words text="Big possibilities." />
+          <Words text="Big possibilities." offset={2} />
           <motion.span
             variants={drawLine}
             aria-hidden="true"

@@ -60,9 +60,8 @@ export default function MusicVideo({ className }: MusicVideoInterface) {
           >
             <span
               className={cn(
-                "flex size-16 items-center justify-center rounded-full border border-white/70 bg-white/80 text-brand-navy shadow-press-glass backdrop-blur-md",
-                "transition-[translate,box-shadow] duration-150 ease-smooth motion-safe:group-hover:-translate-y-px",
-                "group-active:shadow-press-glass-down motion-safe:group-active:translate-y-[3px]",
+                "flex size-16 items-center justify-center rounded-full border border-white/70 bg-white/80 text-brand-navy backdrop-blur-md",
+                "transition-colors duration-150 ease-smooth group-hover:bg-white/95",
                 "group-focus-visible:ring-4 group-focus-visible:ring-accent-marigold",
               )}
             >
