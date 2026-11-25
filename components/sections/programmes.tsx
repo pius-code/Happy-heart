@@ -8,6 +8,10 @@ import Kicker from "@/components/shared/kicker";
 import { routes } from "@/routes";
 import { cn } from "@/lib/utils";
 
+// On phones each card is a slide: 85% wide so the next one peeks in, and it snaps into place.
+// (h-full is md-only: on phones it would stop the row stretching every card to the same height.)
+const slideClassName = "w-[85%] shrink-0 snap-start sm:w-[70%] md:w-auto";
+
 interface StageCardInterface {
   title: string;
   ages: string;
@@ -34,7 +38,7 @@ function StageCard({
   className,
 }: StageCardInterface) {
   return (
-    <RevealItem variant="card" lift className={cn("h-full", className)}>
+    <RevealItem variant="card" lift className={cn("md:h-full", slideClassName, className)}>
       <article
         className={cn(
           "relative flex h-full min-h-72 flex-col justify-end overflow-hidden rounded-card p-6 sm:p-8",
@@ -84,7 +88,11 @@ export default function Programmes() {
         </Link>
       </Reveal>
 
-      <Reveal stagger className="mt-10 grid gap-5 md:grid-cols-2 lg:mt-14 lg:grid-cols-12 lg:gap-6">
+      {/* Phones: a swipeable row where the next card peeks in. Tablet and up: a grid. */}
+      <Reveal
+        stagger
+        className="-mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto overflow-y-hidden px-4 pt-2 pb-4 [scrollbar-width:none] sm:-mx-6 sm:scroll-px-6 sm:px-6 md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pt-0 md:pb-0 lg:mt-14 lg:grid-cols-12 lg:gap-6 [&::-webkit-scrollbar]:hidden"
+      >
         <StageCard
           className="lg:col-span-5"
           title="Crèche & Nursery"
@@ -118,9 +126,13 @@ export default function Programmes() {
         />
 
         {/* Primary & STEAM: the only stage with a verified photo (computer lab) */}
-        <RevealItem variant="card" lift className="h-full md:col-span-2 lg:col-span-7">
+        <RevealItem
+          variant="card"
+          lift
+          className={cn("md:col-span-2 md:h-full lg:col-span-7", slideClassName)}
+        >
           <article className="flex h-full flex-col overflow-hidden rounded-card bg-accent-emerald p-3 sm:flex-row sm:p-4">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[14px] sm:aspect-auto sm:w-1/2">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-[14px] sm:aspect-auto sm:w-1/2">
               <Image
                 src={computerLab}
                 alt="Pupils gathered around desktop computers during a lesson in the school computer lab"

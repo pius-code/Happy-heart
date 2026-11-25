@@ -35,7 +35,8 @@ export default function SiteHeader() {
       transition={{ duration: 0.3, ease: easeSmooth }}
       // Keyboard users tabbing into the header always bring it back into view
       onFocusCapture={() => setIsHidden(false)}
-      className="sticky top-0 z-40 px-4 pt-3 sm:px-6"
+      // Phones: a plain row that scrolls away with the page. Tablet and up: floating sticky bar.
+      className="relative z-40 px-4 pt-3 sm:sticky sm:top-0 sm:px-6"
     >
       <a
         href="#main"
@@ -43,8 +44,8 @@ export default function SiteHeader() {
       >
         Skip to content
       </a>
-      <div className="mx-auto flex max-w-(--container-max) items-center justify-between gap-4 rounded-pill border border-border-subtle bg-surface-elevated/95 py-2 pr-2 pl-2 shadow-md backdrop-blur sm:pr-3">
-        <Logo showName nameClassName="hidden sm:inline" />
+      <div className="mx-auto flex max-w-(--container-max) items-center justify-between gap-4 py-2 sm:rounded-pill sm:border sm:border-border-subtle sm:bg-surface-elevated/95 sm:pr-3 sm:pl-2 sm:shadow-md sm:backdrop-blur">
+        <Logo showName />
 
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-1">

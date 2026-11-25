@@ -4,7 +4,7 @@ import { ArrowUpRightIcon, CalendarBlankIcon } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-import { drawLine, heroStagger, popWord, rise } from "@/lib/motion";
+import { drawLine, heroStagger, popWord, rise, wordWobble } from "@/lib/motion";
 import { Button } from "@/components/ui/button";
 import Kicker from "@/components/shared/kicker";
 import Decor from "@/components/shared/decor";
@@ -20,7 +20,11 @@ function Words({ text }: WordsInterface) {
   return text.split(" ").map((word, index) => (
     <span key={word + index}>
       {index > 0 && " "}
-      <motion.span variants={popWord} className="inline-block origin-bottom-left">
+      <motion.span
+        variants={popWord}
+        whileHover={wordWobble}
+        className="inline-block origin-bottom cursor-default"
+      >
         {word}
       </motion.span>
     </span>
@@ -82,7 +86,7 @@ export default function HeroText() {
           </Link>
         </Button>
         <Button asChild size="lg" variant="glass">
-          <Link href={routes.contact}>
+          <Link href={routes.visit}>
             <CalendarBlankIcon data-icon="inline-start" className="size-5" />
             Book a Visit
           </Link>

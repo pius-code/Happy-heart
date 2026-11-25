@@ -2,10 +2,10 @@ import {
   ArrowUpRightIcon,
   CalendarBlankIcon,
   EnvelopeSimpleIcon,
-  PhoneIcon,
 } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 
+import PhoneMenu from "@/components/shared/phone-menu";
 import KenteTrim from "@/components/shared/kente-trim";
 import { Reveal } from "@/components/shared/reveal";
 import { Button } from "@/components/ui/button";
@@ -44,7 +44,7 @@ export default function AdmissionsCta() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="glass-dark">
-              <Link href={routes.contact}>
+              <Link href={routes.visit}>
                 <CalendarBlankIcon data-icon="inline-start" className="size-5" />
                 Book a Visit
               </Link>
@@ -52,10 +52,7 @@ export default function AdmissionsCta() {
           </div>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-3 text-sm text-white/85 sm:flex-row sm:gap-8">
-            <a href={site.phone.href} className="inline-flex items-center gap-2 hover:text-white">
-              <PhoneIcon aria-hidden="true" className="size-4 text-accent-marigold" />
-              {site.phone.display}
-            </a>
+            <PhoneMenu className="hover:text-white" iconClassName="text-accent-marigold" />
             <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 hover:text-white">
               <EnvelopeSimpleIcon aria-hidden="true" className="size-4 text-accent-marigold" />
               {site.email}

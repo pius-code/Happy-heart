@@ -1,4 +1,4 @@
-import type { Transition, Variants } from "framer-motion";
+import type { TargetAndTransition, Transition, Variants } from "framer-motion";
 
 // Matches --ease-smooth and --ease-spring in app/globals.css
 export const easeSmooth = [0.22, 1, 0.36, 1] as const;
@@ -48,9 +48,10 @@ export const rise: Variants = {
   visible: { y: 0, transition: { duration: 0.5, ease: easeSmooth } },
 };
 
-// Each headline word hops up with a small tilt and a springy settle.
+// Each headline word hops straight up with a springy settle (no tilt, so it never looks crooked).
+// rotate: 0 must stay in both states: it is the angle the hover wobble returns to.
 export const popWord: Variants = {
-  hidden: { y: "0.45em", rotate: 6, scale: 0.94 },
+  hidden: { y: "0.45em", rotate: 0, scale: 0.94 },
   visible: {
     y: 0,
     rotate: 0,
@@ -69,6 +70,13 @@ export const heroStagger: Variants = {
 export const drawLine: Variants = {
   hidden: { clipPath: "inset(0 100% 0 0)" },
   visible: { clipPath: "inset(0 0% 0 0)", transition: { duration: 0.6, ease: easeSmooth } },
+};
+
+// Hovering a headline word makes it wobble and bounce, then settle.
+export const wordWobble: TargetAndTransition = {
+  rotate: [0, -8, 6, -4, 2, 0],
+  y: [0, -8, 0, -3, 0],
+  transition: { duration: 0.6, ease: "easeInOut" },
 };
 
 // --- Hover ---

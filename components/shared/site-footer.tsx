@@ -1,10 +1,11 @@
-import { EnvelopeSimpleIcon, MapPinIcon, PhoneIcon } from "@phosphor-icons/react/ssr";
+import { EnvelopeSimpleIcon, MapPinIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 
 import { mainNav } from "@/routes";
 import { site } from "@/lib/site";
 
 import KenteTrim from "./kente-trim";
+import PhoneMenu from "./phone-menu";
 import Logo from "./logo";
 
 export default function SiteFooter() {
@@ -50,10 +51,7 @@ export default function SiteFooter() {
                 Ghana Post GPS: {site.ghanaPostAddress}
               </span>
             </p>
-            <a href={site.phone.href} className="flex gap-3 hover:text-white">
-              <PhoneIcon aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-accent-marigold" />
-              {site.phone.display}
-            </a>
+            <PhoneMenu className="gap-3 hover:text-white" iconClassName="text-accent-marigold" />
             <a href={`mailto:${site.email}`} className="flex gap-3 hover:text-white">
               <EnvelopeSimpleIcon aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-accent-marigold" />
               {site.email}
