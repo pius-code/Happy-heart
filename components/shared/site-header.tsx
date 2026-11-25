@@ -2,11 +2,13 @@
 
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { easeSmooth } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 import { mainNav, routes } from "@/routes";
 
 import MobileNav from "./mobile-nav";
@@ -20,6 +22,7 @@ export default function SiteHeader() {
   const [isHidden, setIsHidden] = useState(false);
 
   // hooks
+  const pathname = usePathname();
   const { scrollY } = useScroll();
 
   // effect
@@ -49,16 +52,23 @@ export default function SiteHeader() {
 
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-1">
-            {mainNav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="rounded-pill px-4 py-2 text-sm font-medium text-ink-primary transition-colors hover:bg-surface-sand"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {mainNav.map((item) => {
+              const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "rounded-pill px-4 py-2 text-sm font-medium transition-colors hover:bg-surface-sand",
+                      isActive ? "font-semibold text-brand-coral" : "text-ink-primary",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 

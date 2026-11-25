@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRightIcon, ListIcon } from "@phosphor-icons/react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import {
@@ -13,10 +14,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { mainNav, routes } from "@/routes";
 import { site } from "@/lib/site";
 
 export default function MobileNav() {
+  const pathname = usePathname();
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -30,16 +33,23 @@ export default function MobileNav() {
           <SheetDescription>{site.ageRange}</SheetDescription>
         </SheetHeader>
         <nav aria-label="Mobile" className="flex flex-col gap-1 px-4">
-          {mainNav.map((item) => (
-            <SheetClose asChild key={item.href}>
-              <Link
-                href={item.href}
-                className="rounded-input px-3 py-3 text-base font-medium text-ink-primary hover:bg-surface-sand"
-              >
-                {item.label}
-              </Link>
-            </SheetClose>
-          ))}
+          {mainNav.map((item) => {
+            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+            return (
+              <SheetClose asChild key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "rounded-input px-3 py-3 text-base font-medium transition-colors hover:bg-surface-sand",
+                    isActive ? "font-semibold text-brand-coral" : "text-ink-primary",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              </SheetClose>
+            );
+          })}
         </nav>
         <div className="mt-auto p-4">
           <SheetClose asChild>

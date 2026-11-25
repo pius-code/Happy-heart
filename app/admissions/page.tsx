@@ -7,6 +7,7 @@ import {
 } from "@phosphor-icons/react/ssr";
 import type { Metadata } from "next";
 
+import AdmissionForm from "@/components/admissions/admission-form";
 import { Reveal, RevealItem } from "@/components/shared/reveal";
 import PageIntro from "@/components/shared/page-intro";
 import { Button } from "@/components/ui/button";
@@ -77,6 +78,29 @@ export default function AdmissionsPage() {
             </RevealItem>
           ))}
         </Reveal>
+      </section>
+
+      {/* Admission application form */}
+      <section
+        id="apply"
+        aria-labelledby="apply-title"
+        className="mx-auto w-full max-w-(--container-max) scroll-mt-24 px-4 pb-14 sm:px-6 lg:px-8 lg:pb-24"
+      >
+        <Reveal className="mb-8">
+          <Kicker>Application Form</Kicker>
+          <h2
+            id="apply-title"
+            className="mt-3 text-h2 leading-[1.2] font-semibold tracking-[-0.02em] lg:leading-[1.15]"
+          >
+            Apply for admission
+          </h2>
+          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-normal text-ink-muted">
+            Fill in your child&apos;s details below and our admissions team will get back to you
+            with the next steps.
+          </p>
+        </Reveal>
+
+        <AdmissionForm />
       </section>
 
       {/* id="enquire" is the target of every "Book a Visit" button (routes.visit) */}

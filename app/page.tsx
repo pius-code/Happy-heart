@@ -1,3 +1,4 @@
+import HappyHeartBanner from "@/components/sections/happy-heart-banner";
 import AdmissionsCta from "@/components/sections/admissions-cta";
 import SchoolLife from "@/components/sections/school-life";
 import Programmes from "@/components/sections/programmes";
@@ -33,6 +34,7 @@ export default function HomePage() {
       <About />
       <SchoolLife />
       <AdmissionsCta />
+      <HappyHeartBanner />
     </>
   );
 }

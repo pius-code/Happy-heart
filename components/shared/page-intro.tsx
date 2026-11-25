@@ -1,10 +1,12 @@
+import type { ReactNode } from "react";
+
 import { Reveal } from "@/components/shared/reveal";
 import Kicker from "@/components/shared/kicker";
 import Decor from "@/components/shared/decor";
 
 interface PageIntroInterface {
   kicker: string;
-  title: string;
+  title: ReactNode;
   lead: string;
 }
 

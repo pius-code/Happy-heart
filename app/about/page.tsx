@@ -1,9 +1,19 @@
-import { BusIcon, ForkKnifeIcon, SmileyIcon, TreeIcon } from "@phosphor-icons/react/ssr";
+import {
+  BusIcon,
+  DesktopIcon,
+  ForkKnifeIcon,
+  MusicNotesIcon,
+  ShieldCheckIcon,
+  SmileyIcon,
+  TranslateIcon,
+  TreeIcon,
+} from "@phosphor-icons/react/ssr";
 import type { Metadata } from "next";
 import Image from "next/image";
 
 import pupilsWriting from "@/public/images/IMG_20240126_084507.jpg";
 import AdmissionsCta from "@/components/sections/admissions-cta";
+import KenteSlideText from "@/components/shared/kente-slide-text";
 import { Reveal, RevealItem } from "@/components/shared/reveal";
 import PageIntro from "@/components/shared/page-intro";
 import Kicker from "@/components/shared/kicker";
@@ -24,6 +34,10 @@ const facilities = [
   { label: "Playground", icon: TreeIcon, color: "bg-accent-emerald text-white" },
   { label: "Healthy canteen", icon: ForkKnifeIcon, color: "bg-accent-tangerine text-ink-primary" },
   { label: "Positive learning", icon: SmileyIcon, color: "bg-brand-navy text-white" },
+  { label: "Music room", icon: MusicNotesIcon, color: "bg-brand-coral text-white" },
+  { label: "ICT department", icon: DesktopIcon, color: "bg-brand-navy text-white" },
+  { label: "Chinese & French lessons", icon: TranslateIcon, color: "bg-accent-marigold text-ink-primary" },
+  { label: "24/7 CCTV & security", icon: ShieldCheckIcon, color: "bg-accent-emerald text-white" },
 ];
 
 export default function AboutPage() {
@@ -31,9 +45,27 @@ export default function AboutPage() {
     <>
       <PageIntro
         kicker="About us"
-        title="Making every heart happy"
+        title={
+          <>
+            Making every <KenteSlideText text="heart happy" />
+          </>
+        }
         lead="Our aim is to bring satisfaction to everyone in our community and make each heart happy: child, parent and school alike."
       />
+
+      <section aria-label="School video" className="mx-auto w-full max-w-(--container-max) px-4 pb-12 sm:px-6 lg:px-8 lg:pb-20">
+        <div className="mx-auto aspect-video max-w-4xl overflow-hidden rounded-squircle border border-border-subtle bg-brand-navy shadow-lg">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/56tZLhGHZOY?si=LH_-yc-iT4tkilvQ"
+            title="Happy Heart School video"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            className="size-full border-0"
+          />
+        </div>
+      </section>
 
       <section aria-labelledby="belief-title" className="bg-surface-sand">
         <div className="mx-auto grid max-w-(--container-max) items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8 lg:py-24">

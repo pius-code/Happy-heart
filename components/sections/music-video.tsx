@@ -65,7 +65,7 @@ export default function MusicVideo({ className }: MusicVideoInterface) {
                 "group-focus-visible:ring-4 group-focus-visible:ring-accent-marigold",
               )}
             >
-              <PlayIcon weight="fill" aria-hidden="true" className="size-7 translate-x-0.5" />
+              <PlayIcon weight="fill" aria-hidden="true" className="size-7" />
             </span>
           </button>
           {/* Same caption style as the photos; hidden once the native controls appear */}
