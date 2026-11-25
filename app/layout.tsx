@@ -2,6 +2,8 @@ import { Bricolage_Grotesque, Poppins } from "next/font/google";
 import type { Metadata } from "next";
 
 import MotionProvider from "@/providers/motion-provider";
+import SiteHeader from "@/components/shared/site-header";
+import SiteFooter from "@/components/shared/site-footer";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import "./globals.css";
@@ -34,7 +36,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={cn("h-full antialiased", bricolage.variable, poppins.variable)}
     >
       <body className="flex min-h-full flex-col">
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          <SiteHeader />
+          <main id="main" className="flex flex-1 flex-col">
+            {children}
+          </main>
+          <SiteFooter />
+        </MotionProvider>
       </body>
     </html>
   );
