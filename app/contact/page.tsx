@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 
 import ContactForm from "@/components/contact/contact-form";
+import { buildPageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Contact Us",
   description: `Get in touch with ${site.name} in ${site.address.area}, ${site.address.city}.`,
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

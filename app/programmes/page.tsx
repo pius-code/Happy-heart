@@ -1,8 +1,11 @@
-import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Programmes",
-};
+  description:
+    "Explore Crèche, Nursery, Kindergarten, Primary, and Junior High School programmes at Happy Heart School.",
+  path: "/programmes",
+});
 
 export default function ProgrammesPage() {
   return (

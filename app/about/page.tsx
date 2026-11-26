@@ -18,15 +18,17 @@ import { Reveal, RevealItem } from "@/components/shared/reveal";
 import PageIntro from "@/components/shared/page-intro";
 import Kicker from "@/components/shared/kicker";
 import Decor from "@/components/shared/decor";
+import { buildPageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 import Team from "./_components/team";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "About",
   description:
     "Happy Heart School in Dome Pillar 2, Accra: small classes, staff who know every child, and the team behind the school.",
-};
+  path: "/about",
+});
 
 // Facilities listed on the school's previous website.
 const facilities = [

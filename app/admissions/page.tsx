@@ -12,14 +12,16 @@ import { Reveal, RevealItem } from "@/components/shared/reveal";
 import PageIntro from "@/components/shared/page-intro";
 import { Button } from "@/components/ui/button";
 import Kicker from "@/components/shared/kicker";
+import { buildPageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Admissions",
   description:
     "Admissions at Happy Heart School, Dome Pillar 2, Accra. Classes from Crèche to Junior High School, ages 18 months to 14 years.",
-};
+  path: "/admissions",
+});
 
 // Same stages and ages as the Programmes section on the home page.
 const stages = [
