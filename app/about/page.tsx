@@ -14,6 +14,7 @@ import Image from "next/image";
 import pupilsWriting from "@/public/images/IMG_20240126_084507.jpg";
 import AdmissionsCta from "@/components/sections/admissions-cta";
 import KenteSlideText from "@/components/shared/kente-slide-text";
+import YouTubeEmbed from "@/components/shared/youtube-embed";
 import { Reveal, RevealItem } from "@/components/shared/reveal";
 import PageIntro from "@/components/shared/page-intro";
 import Kicker from "@/components/shared/kicker";
@@ -56,17 +57,7 @@ export default function AboutPage() {
       />
 
       <section aria-label="School video" className="mx-auto w-full max-w-(--container-max) px-4 pb-12 sm:px-6 lg:px-8 lg:pb-20">
-        <div className="mx-auto aspect-video max-w-4xl overflow-hidden rounded-squircle border border-border-subtle bg-brand-navy shadow-lg">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/56tZLhGHZOY?si=LH_-yc-iT4tkilvQ"
-            title="Happy Heart School video"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-            className="size-full border-0"
-          />
-        </div>
+        <YouTubeEmbed videoId="56tZLhGHZOY" title="Happy Heart School video" />
       </section>
 
       <section aria-labelledby="belief-title" className="bg-surface-sand">

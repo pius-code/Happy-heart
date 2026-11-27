@@ -1,11 +1,8 @@
-import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
 import Image from "next/image";
-import Link from "next/link";
 
 import computerLab from "@/public/images/IMG_20240126_101836.jpg";
 import { Reveal, RevealItem } from "@/components/shared/reveal";
 import Kicker from "@/components/shared/kicker";
-import { routes } from "@/routes";
 import { cn } from "@/lib/utils";
 
 // On phones each card is a slide: 85% wide so the next one peeks in, and it snaps into place.
@@ -20,8 +17,6 @@ interface StageCardInterface {
   surface: string;
   // Colour of the age label
   agesColor: string;
-  // Colour of the "Explore" link
-  link: string;
   // Abstract shapes used when there is no verified photo for this stage
   shapes?: React.ReactNode;
   className?: string;
@@ -33,7 +28,6 @@ function StageCard({
   description,
   surface,
   agesColor,
-  link,
   shapes,
   className,
 }: StageCardInterface) {
@@ -50,13 +44,6 @@ function StageCard({
           <p className={cn("font-label text-sm font-semibold", agesColor)}>{ages}</p>
           <h3 className="mt-2 text-h3 leading-tight font-semibold tracking-[-0.01em]">{title}</h3>
           <p className="mt-2 max-w-sm leading-relaxed">{description}</p>
-          <Link
-            href={routes.programmes}
-            className={cn("mt-5 inline-flex items-center gap-2 font-semibold underline-offset-4 hover:underline", link)}
-          >
-            Explore {title}
-            <ArrowRightIcon aria-hidden="true" className="size-4" />
-          </Link>
         </div>
       </article>
     </RevealItem>
@@ -69,23 +56,14 @@ export default function Programmes() {
       aria-labelledby="programmes-title"
       className="mx-auto w-full max-w-(--container-max) px-4 py-14 sm:px-6 lg:px-8 lg:py-24"
     >
-      <Reveal className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-        <div className="max-w-xl">
-          <Kicker>Programmes</Kicker>
-          <h2
-            id="programmes-title"
-            className="mt-4 text-h2 leading-[1.2] font-semibold tracking-[-0.02em] lg:leading-[1.15]"
-          >
-            Four stages, one caring journey
-          </h2>
-        </div>
-        <Link
-          href={routes.programmes}
-          className="inline-flex items-center gap-2 font-semibold text-brand-coral-dark underline-offset-4 hover:underline"
+      <Reveal className="max-w-xl">
+        <Kicker>Programmes</Kicker>
+        <h2
+          id="programmes-title"
+          className="mt-4 text-h2 leading-[1.2] font-semibold tracking-[-0.02em] lg:leading-[1.15]"
         >
-          View all programmes
-          <ArrowRightIcon aria-hidden="true" className="size-4" />
-        </Link>
+          Four stages, one caring journey
+        </h2>
       </Reveal>
 
       {/* Phones: a swipeable row where the next card peeks in. Tablet and up: a grid. */}
@@ -100,7 +78,6 @@ export default function Programmes() {
           description="A gentle, caring first step into school life for our youngest learners."
           surface="bg-accent-tangerine text-ink-primary"
           agesColor="text-ink-primary"
-          link="text-ink-primary"
           shapes={
             <>
               <span aria-hidden="true" className="absolute -top-10 -right-10 size-44 rounded-full bg-white/25" />
@@ -116,7 +93,6 @@ export default function Programmes() {
           description="Play, stories and discovery that build confidence and curiosity before Primary school."
           surface="bg-accent-marigold text-ink-primary"
           agesColor="text-ink-primary"
-          link="text-ink-primary"
           shapes={
             <>
               <span aria-hidden="true" className="absolute -right-6 -bottom-16 h-56 w-44 rounded-arch bg-white/30" />
@@ -125,7 +101,7 @@ export default function Programmes() {
           }
         />
 
-        {/* Primary & STEAM: the only stage with a verified photo (computer lab) */}
+        {/* Primary: the only stage with a verified photo (computer lab) */}
         <RevealItem
           variant="card"
           lift
@@ -144,18 +120,11 @@ export default function Programmes() {
             <div className="flex flex-1 flex-col justify-end rounded-[14px] bg-surface-elevated p-6 text-ink-primary sm:ml-4 sm:p-7">
               <p className="font-label text-sm font-semibold text-ink-primary">6 – 11 years</p>
               <h3 className="mt-2 text-h3 leading-tight font-semibold tracking-[-0.01em]">
-                Primary &amp; STEAM
+                Primary
               </h3>
               <p className="mt-2 leading-relaxed text-ink-muted">
-                Strong foundations across core subjects, with hands-on time in our computer lab.
+                Strong foundations across core subjects, with hands-on time in our ICT lab.
               </p>
-              <Link
-                href={routes.programmes}
-                className="mt-5 inline-flex items-center gap-2 font-semibold text-brand-coral-dark underline-offset-4 hover:underline"
-              >
-                Explore Primary &amp; STEAM
-                <ArrowRightIcon aria-hidden="true" className="size-4" />
-              </Link>
             </div>
           </article>
         </RevealItem>
@@ -164,14 +133,13 @@ export default function Programmes() {
           className="md:col-span-2 lg:col-span-5"
           title="Junior High School"
           ages="12 – 14 years"
-          description="Focused preparation for the next stage of education, with growing independence and responsibility."
+          description="Dedicated preparation for the BECE, where our candidates consistently excel and earn placements in top senior high schools."
           surface="bg-brand-navy text-white"
           agesColor="text-accent-marigold"
-          link="text-accent-marigold"
           shapes={
             <>
-              <span aria-hidden="true" className="absolute -top-12 -right-12 size-48 rounded-full border-[14px] border-white/10" />
-              <span aria-hidden="true" className="absolute top-10 right-28 size-10 rounded-full bg-accent-marigold/80" />
+              <span aria-hidden="true" className="absolute -top-12 -right-12 size-44 rounded-full border-[18px] border-white/10" />
+              <span aria-hidden="true" className="absolute right-8 bottom-6 size-10 rounded-full bg-brand-coral/80" />
             </>
           }
         />

@@ -1,5 +1,6 @@
 import HappyHeartBanner from "@/components/sections/happy-heart-banner";
 import AdmissionsCta from "@/components/sections/admissions-cta";
+import MottoBanner from "@/components/sections/motto-banner";
 import SchoolLife from "@/components/sections/school-life";
 import Programmes from "@/components/sections/programmes";
 import About from "@/components/sections/about";
@@ -30,6 +31,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero />
+      <MottoBanner />
       <Programmes />
       <About />
       <SchoolLife />

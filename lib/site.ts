@@ -19,7 +19,7 @@ export const site = {
     // Same number on WhatsApp. wa.me opens a chat in the app (or WhatsApp Web).
     whatsappHref: "https://wa.me/233554414948",
   },
-  email: "Hhs2014.gh@gmail.com",
+  email: "admin@happyheart.edu.gh",
 };
 
 // Leadership listed on the previous website. Only Mr Bluie has a usable photo there.

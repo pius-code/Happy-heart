@@ -51,6 +51,53 @@ export default function AdmissionsPage() {
         lead="We welcome children aged 18 months to 14 years. Every admission starts with a friendly conversation with our team."
       />
 
+      <section aria-label="Academic calendar notice" className="mx-auto w-full max-w-(--container-max) px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-squircle bg-linear-to-r from-brand-coral via-accent-tangerine to-accent-marigold p-6 text-white shadow-coral-glow sm:p-8 lg:px-10 lg:py-9">
+            {/* Decorative background shapes inspired by the promo banners */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-12 -right-8 size-52 rounded-full bg-white/15"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute right-24 -bottom-16 size-44 rounded-full bg-brand-navy/10"
+            />
+
+            <div className="relative flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+              <div className="max-w-xl">
+                <p className="text-xs font-medium tracking-wide text-white/90 sm:text-sm">
+                  Next Academic Calendar · 2026–2027
+                </p>
+                <h2 className="mt-1 font-display text-2xl leading-tight font-bold tracking-[-0.02em] text-white sm:text-3xl">
+                  Term 2 begins on January 5, 2027
+                </h2>
+                <a
+                  href="#apply"
+                  className="mt-5 inline-flex items-center rounded-pill bg-brand-navy/80 px-5 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-brand-navy"
+                >
+                  Apply for Term 2
+                </a>
+              </div>
+
+              {/* Stylized calendar illustration on the right */}
+              <div
+                aria-hidden="true"
+                className="hidden shrink-0 rotate-3 rounded-card bg-white/95 px-6 py-4 text-center text-brand-navy shadow-lg sm:block"
+              >
+                <p className="font-label text-xs font-bold tracking-widest text-brand-coral uppercase">
+                  Jan 2027
+                </p>
+                <p className="font-display text-4xl leading-none font-extrabold text-brand-navy">
+                  05
+                </p>
+                <p className="mt-1 text-[11px] font-semibold text-ink-muted">Term 2</p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       <section
         aria-labelledby="classes-title"
         className="mx-auto w-full max-w-(--container-max) px-4 pb-14 sm:px-6 lg:px-8 lg:pb-24"

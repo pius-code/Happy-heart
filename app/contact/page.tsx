@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { ArrowRight } from "lucide-react";
 
 import ContactForm from "@/components/contact/contact-form";
@@ -78,7 +79,13 @@ export default function ContactPage() {
 
         {/* Right column: Contact form card */}
         <div className="lg:col-span-7">
-          <ContactForm />
+          <Suspense
+            fallback={
+              <div className="h-[460px] animate-pulse rounded-squircle border border-border-subtle bg-surface-sand" />
+            }
+          >
+            <ContactForm />
+          </Suspense>
         </div>
       </div>
     </section>

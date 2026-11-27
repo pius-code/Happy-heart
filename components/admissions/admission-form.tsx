@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
-
-import { site } from "@/lib/site";
+import { AlertCircle, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 
 const classOptions = [
   "Crèche (18 months – 2 years)",
@@ -25,7 +23,7 @@ const classOptions = [
 const sectionOptions = ["First Term (September)", "Second Term (January)", "Third Term (April)"];
 
 const inputClassName =
-  "w-full rounded-input border border-border-subtle bg-surface-canvas px-4 py-2.5 text-sm text-ink-primary placeholder:text-ink-muted/70 transition-colors focus:border-brand-coral focus:ring-2 focus:ring-brand-coral/20 focus:outline-none";
+  "w-full rounded-input border border-border-subtle bg-surface-canvas px-4 py-2.5 text-sm text-ink-primary placeholder:text-ink-muted/70 transition-colors focus:border-brand-coral focus:ring-2 focus:ring-brand-coral/20 focus:outline-none disabled:opacity-60";
 
 export default function AdmissionForm() {
   const [firstName, setFirstName] = useState("");
@@ -38,34 +36,62 @@ export default function AdmissionForm() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+    setSubmitted(false);
 
     const studentName = `${firstName.trim()} ${lastName.trim()}`.trim();
-    const subject = encodeURIComponent(`Admission Application — ${studentName || "New Student"}`);
-    const body = encodeURIComponent(
-      [
-        "STUDENT INFORMATION",
-        `Name: ${studentName}`,
-        `Gender: ${gender || "Not specified"}`,
-        `Date of Birth: ${dob}`,
-        `Class Applying For: ${targetClass}`,
-        `Preferred Term / Section: ${section || "Not specified"}`,
-        "",
-        "PARENT / GUARDIAN INFORMATION",
-        `Name: ${guardianName.trim()}`,
-        `Phone: ${phone.trim()}`,
-        `Email: ${email.trim() || "Not provided"}`,
-        notes.trim() ? `\nAdditional Notes:\n${notes.trim()}` : "",
-      ]
-        .filter(Boolean)
-        .join("\n"),
-    );
 
-    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: guardianName.trim() || studentName,
+          email: email.trim(),
+          phone: phone.trim(),
+          inquiryType: "Admissions",
+          message:
+            notes.trim() ||
+            `Admission application for ${studentName} (${targetClass}${section ? `, ${section}` : ""}).`,
+          details: [
+            { label: "Student Name", value: studentName },
+            { label: "Gender", value: gender || "Not specified" },
+            { label: "Date of Birth", value: dob },
+            { label: "Class Applying For", value: targetClass },
+            { label: "Preferred Term", value: section || "Not specified" },
+            { label: "Parent / Guardian", value: guardianName.trim() },
+          ],
+        }),
+      });
+
+      const data = (await res.json()) as { error?: string };
+      if (!res.ok) {
+        throw new Error(data.error || "Submission failed. Please try again.");
+      }
+
+      setSubmitted(true);
+      setFirstName("");
+      setLastName("");
+      setGender("");
+      setDob("");
+      setTargetClass("");
+      setSection("");
+      setGuardianName("");
+      setPhone("");
+      setEmail("");
+      setNotes("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to submit application. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -89,6 +115,7 @@ export default function AdmissionForm() {
                 id="adm-first-name"
                 type="text"
                 required
+                disabled={isSubmitting}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 placeholder="e.g. Kwame"
@@ -104,6 +131,7 @@ export default function AdmissionForm() {
                 id="adm-last-name"
                 type="text"
                 required
+                disabled={isSubmitting}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="e.g. Mensah"
@@ -117,6 +145,7 @@ export default function AdmissionForm() {
               </label>
               <select
                 id="adm-gender"
+                disabled={isSubmitting}
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
                 className={inputClassName}
@@ -135,6 +164,7 @@ export default function AdmissionForm() {
                 id="adm-dob"
                 type="date"
                 required
+                disabled={isSubmitting}
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
                 className={inputClassName}
@@ -148,6 +178,7 @@ export default function AdmissionForm() {
               <select
                 id="adm-class"
                 required
+                disabled={isSubmitting}
                 value={targetClass}
                 onChange={(e) => setTargetClass(e.target.value)}
                 className={inputClassName}
@@ -167,6 +198,7 @@ export default function AdmissionForm() {
               </label>
               <select
                 id="adm-section"
+                disabled={isSubmitting}
                 value={section}
                 onChange={(e) => setSection(e.target.value)}
                 className={inputClassName}
@@ -197,6 +229,7 @@ export default function AdmissionForm() {
                 id="adm-guardian"
                 type="text"
                 required
+                disabled={isSubmitting}
                 value={guardianName}
                 onChange={(e) => setGuardianName(e.target.value)}
                 placeholder="Full name"
@@ -212,6 +245,7 @@ export default function AdmissionForm() {
                 id="adm-phone"
                 type="tel"
                 required
+                disabled={isSubmitting}
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="e.g. 055 441 4948"
@@ -226,6 +260,7 @@ export default function AdmissionForm() {
               <input
                 id="adm-email"
                 type="email"
+                disabled={isSubmitting}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="parent@example.com"
@@ -241,6 +276,7 @@ export default function AdmissionForm() {
             <textarea
               id="adm-notes"
               rows={3}
+              disabled={isSubmitting}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Allergies, transport needs, or questions for our admissions team..."
@@ -250,24 +286,36 @@ export default function AdmissionForm() {
         </div>
 
         <div className="flex flex-col-reverse items-stretch justify-between gap-4 border-t border-border-subtle pt-6 sm:flex-row sm:items-center">
-          {submitted ? (
-            <p className="inline-flex items-center gap-2 text-sm font-medium text-accent-emerald">
-              <CheckCircle2 className="size-4 shrink-0" />
-              <span>Application prepared! Send the email that opened, or message us on WhatsApp.</span>
-            </p>
-          ) : (
-            <p className="text-xs text-ink-muted">
-              Fields marked with <span className="text-brand-coral">*</span> are required.
-            </p>
-          )}
+          <div>
+            {submitted ? (
+              <p className="inline-flex items-center gap-2 text-sm font-medium text-accent-emerald">
+                <CheckCircle2 className="size-4 shrink-0" />
+                <span>Application sent! Our admissions team will contact you soon.</span>
+              </p>
+            ) : error ? (
+              <p className="inline-flex items-center gap-2 text-sm font-medium text-destructive">
+                <AlertCircle className="size-4 shrink-0" />
+                <span>{error}</span>
+              </p>
+            ) : (
+              <p className="text-xs text-ink-muted">
+                Fields marked with <span className="text-brand-coral">*</span> are required.
+              </p>
+            )}
+          </div>
 
           <button
             type="submit"
-            className="group inline-flex items-center justify-between gap-3 self-end rounded-pill bg-brand-coral py-2 pr-2 pl-6 text-sm font-semibold text-white shadow-coral-glow transition-all hover:bg-brand-coral-dark focus-visible:ring-2 focus-visible:ring-brand-coral focus-visible:outline-none active:scale-[0.98]"
+            disabled={isSubmitting}
+            className="group inline-flex items-center justify-between gap-3 self-end rounded-pill bg-brand-coral py-2 pr-2 pl-6 text-sm font-semibold text-white shadow-coral-glow transition-all hover:bg-brand-coral-dark focus-visible:ring-2 focus-visible:ring-brand-coral focus-visible:outline-none active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            <span>Submit Application</span>
+            <span>{isSubmitting ? "Submitting..." : "Submit Application"}</span>
             <span className="flex size-8 items-center justify-center rounded-full bg-white text-brand-coral transition-transform group-hover:translate-x-0.5">
-              <ArrowRight className="size-4" />
+              {isSubmitting ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <ArrowRight className="size-4" />
+              )}
             </span>
           </button>
         </div>
